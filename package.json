@@ -13,6 +13,11 @@
       "src/context"
     ]
   },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
+  },
   "dependencies": {
     "@date-io/date-fns": "1.x",
     "@date-io/dayjs": "1.x",
