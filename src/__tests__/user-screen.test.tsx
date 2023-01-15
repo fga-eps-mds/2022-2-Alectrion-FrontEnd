@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
-import UserScreen from './index'
-import { AuthContext } from '../../contexts/auth'
+import UserScreen from '../pages/user-screen/index'
+import { AuthContext } from '../contexts/auth'
 
 test('must edit user', async () => {
   render(

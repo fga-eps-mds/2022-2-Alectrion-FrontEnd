@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import NavBar from './index'
-import Providers from './../../utils/test-utils'
+import NavBar from '../components/NavBar/index'
+import Providers from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
-import { AuthContext } from '../../contexts/auth'
+import { AuthContext } from '../contexts/auth'
 
 test('test NavBar', () => {
   render(

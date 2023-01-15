@@ -1,7 +1,7 @@
 import { render, screen, waitFor, getByRole } from '@testing-library/react'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
-import EditUser from './index'
+import EditUser from '../pages/EditUser/index'
 test('must edit user', async () => {
   const location = {
     state: {

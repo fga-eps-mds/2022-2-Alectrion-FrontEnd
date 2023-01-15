@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 
-import EquipamentsTables, { equipament } from './index'
+import EquipamentsTables, { equipament } from '../components/Equipament-Tables/index'
 test('should list equipament', async () => {
   const equipaments = [
     {

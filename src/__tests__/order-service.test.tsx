@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
-import { AuthContext } from '../../contexts/auth'
-import Providers from '../../utils/test-utils'
+import { AuthContext } from '../contexts/auth'
+import Providers from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
 
-import OrderRegister from './index'
+import OrderRegister from '../pages/order-service/index'
 
 test('should register new user', async () => {
   render(

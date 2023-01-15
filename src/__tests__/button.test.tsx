@@ -1,7 +1,7 @@
-import { Button } from './index'
+import { Button } from '../components/button/index'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 
 test('button unit test', () => {
   render(

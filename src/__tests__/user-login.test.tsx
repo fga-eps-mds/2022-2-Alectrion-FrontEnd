@@ -1,8 +1,8 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import UserLoginScreen from './index'
-import Providers from '../../utils/test-utils'
+import UserLoginScreen from '../pages/user-login-screen/index'
+import Providers from '../utils/test-utils'
 
 test('login to the application', () => {
   render(

@@ -1,7 +1,7 @@
-import SelectJob from './index'
+import SelectJob from '../components/select-job/index'
 import { render, screen, getByRole, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 
 test('Select job unit test', async () => {
   render(

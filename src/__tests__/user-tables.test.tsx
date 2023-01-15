@@ -1,9 +1,9 @@
 import '@testing-library/jest-dom'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 
-import UserTables, { User } from './index'
+import UserTables, { User } from '../components/User-Tables/index'
 test('should list equipament', async () => {
   const users = [
     {

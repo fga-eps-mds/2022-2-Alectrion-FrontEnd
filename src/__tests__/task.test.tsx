@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { Task } from './index'
-import Providers from './../../utils/test-utils'
+import { Task } from '../pages/task/index'
+import Providers from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
-import { AuthContext } from '../../contexts/auth'
+import { AuthContext } from '../contexts/auth'
 
 test('Testing screen Task', () => {
   render(

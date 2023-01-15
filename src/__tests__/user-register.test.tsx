@@ -1,10 +1,10 @@
 import '@testing-library/jest-dom'
 import { render, screen, waitFor, getByRole } from '@testing-library/react'
-import Providers from '../../utils/test-utils'
+import Providers from '../utils/test-utils'
 import userEvent from '@testing-library/user-event'
 import axios from 'axios'
 
-import UserRegister from './index'
+import UserRegister from '../pages/user-register/index'
 
 jest.mock('axios')
 
