@@ -1,6 +1,7 @@
 import { Card } from '@mui/material'
 import styled from 'styled-components'
 import { styled as styledSystem } from '@mui/system'
+import { Link } from 'react-router-dom'
 
 export const FormStyled = styled.form`
   display: grid;
@@ -23,3 +24,8 @@ export const StyledCard = styledSystem(Card)(({ theme }) => ({
   marginBottom: '50px',
   backgroundColor: '#3c4b54'
 }))
+
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`

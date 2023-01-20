@@ -1,6 +1,6 @@
 import { CardContent } from '@mui/material'
 import { useFormik } from 'formik'
-import { FormStyled, StyledCard } from './styles'
+import { FormStyled, StyledCard, StyledLink } from './styles'
 import * as yup from 'yup'
 import { theme } from '../../styles/theme'
 import BasicTextFields from '../text-field'
@@ -33,7 +33,6 @@ const LoginScreenForm = () => {
           username: values.username,
           password: values.password
         }
-
         await Login(data)
         navigate('/')
       } catch (error) {
@@ -86,6 +85,8 @@ const LoginScreenForm = () => {
             helperText={formik.touched.password && formik.errors.password}
             error={formik.touched.password && Boolean(formik.errors.password)}
           />
+
+          <StyledLink to={'/password-recovery'}>Esqueci minha senha</StyledLink>
 
           <Button
             id="login"

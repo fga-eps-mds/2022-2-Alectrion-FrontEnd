@@ -14,6 +14,7 @@ import { theme } from '../../styles/theme'
 import api from '../../api/config'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import randomstring from 'randomstring'
 
 const RegisterUserForm = () => {
   const navigate = useNavigate()
@@ -30,18 +31,10 @@ const RegisterUserForm = () => {
       .min(3, 'Digite pelo menos 3 caracteres')
       .trim(),
     job: yup.string().required('Esse campo é obrigatório'),
-    profile: yup.string().required('Esse campo é obrigatório'),
-    newPassword: yup
-      .string()
-      .min(4, 'A senha deve conter ao menos 4 caracteres')
-      .required('Esse campo é obrigatório')
-      .trim(),
-    confirmPassword: yup
-      .string()
-      .min(4, 'A senha deve conter ao menos 4 caracteres')
-      .required('Esse campo é obrigatório')
-      .trim()
+    profile: yup.string().required('Esse campo é obrigatório')
   })
+
+  const password = randomstring.generate(6)
 
   const formik = useFormik({
     initialValues: {
@@ -50,11 +43,11 @@ const RegisterUserForm = () => {
       username: '',
       job: 'GENERICO',
       profile: 'BASICO',
-      newPassword: '',
-      confirmPassword: ''
+      newPassword: password
     },
     validationSchema,
     onSubmit: async (values) => {
+      console.log(values)
       try {
         await api.post('/user/create', {
           name: values.name,
@@ -64,7 +57,7 @@ const RegisterUserForm = () => {
           role: values.profile,
           password: values.newPassword
         })
-        toast.success('Usuário criado.')
+        toast.success(`Usuário criado. Senha: ${password}`)
         navigate('/users')
       } catch (error) {
         toast.error('Aconteceu algum erro.')
@@ -154,37 +147,6 @@ const RegisterUserForm = () => {
               <MenuItem value="CONSULTA">Consulta</MenuItem>
             </StyledSelect>
           </FormControl>
-          <StyledTextField
-            size="small"
-            data-testid="password-input"
-            label="Senha"
-            type="password"
-            name="newPassword"
-            variant="outlined"
-            onChange={formik.handleChange}
-            value={formik.values.newPassword}
-            helperText={formik.touched.newPassword && formik.errors.newPassword}
-            error={
-              formik.touched.newPassword && Boolean(formik.errors.newPassword)
-            }
-          />
-          <StyledTextField
-            size="small"
-            id="confirmpassword-input"
-            label="Confirmar senha"
-            type="password"
-            name="confirmPassword"
-            variant="outlined"
-            onChange={formik.handleChange}
-            value={formik.values.confirmPassword}
-            helperText={
-              formik.touched.confirmPassword && formik.errors.confirmPassword
-            }
-            error={
-              formik.touched.confirmPassword &&
-              Boolean(formik.errors.confirmPassword)
-            }
-          />
           <Button
             variant="contained"
             type="submit"

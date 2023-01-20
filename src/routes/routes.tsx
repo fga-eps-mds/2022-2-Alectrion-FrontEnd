@@ -18,6 +18,7 @@ import OrderRegister from '../pages/order-service'
 import { CircularProgress } from '@mui/material'
 import EquipRegister from '../pages/equipment-register'
 import { OrderServices } from '../pages/order-services'
+import PasswordRecovery from '../pages/PasswordRecovery'
 type AuthRouteProps = {
   children: ReactNode
 }
@@ -108,6 +109,7 @@ export const SignRoutes = () => {
           }
         />
         <Route path="/login" element={<UserLoginScreen />} />
+        <Route path="/password-recovery" element={<PasswordRecovery />} />
       </Routes>
     </BrowserRouter>
   )
