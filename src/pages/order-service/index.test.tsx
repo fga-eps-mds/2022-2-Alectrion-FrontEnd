@@ -47,7 +47,7 @@ test('should register new user', async () => {
   expect(tippingNumberInput).toBeInTheDocument()
   userEvent.type(tippingNumberInput, '654321')
 
-  const statusInput = screen.getByLabelText('Status')
+  const statusInput = screen.getByLabelText('Situação')
   expect(statusInput).toBeInTheDocument()
   userEvent.type(statusInput, 'Ativo')
 

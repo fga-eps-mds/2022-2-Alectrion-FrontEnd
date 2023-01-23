@@ -28,6 +28,7 @@ const RegisterEquipForm = () => {
   const navigate = useNavigate()
   const validationSchema = yup.object().shape({
     productType: yup.string().trim().required('Esse campo é obrigatório'),
+    estado: yup.string().trim().required('Esse campo é obrigatório'),
     tippingNumber: yup
       .string()
       .trim()
@@ -112,14 +113,14 @@ const RegisterEquipForm = () => {
       .string()
       .trim()
       .when('productType', {
-        is: 'MONITOR',
+        is: 'Monitor',
         then: yup.string().required('Esse campo é obrigatório')
       }),
     monitorSize: yup
       .string()
       .trim()
       .when('productType', {
-        is: 'MONITOR',
+        is: 'Monitor',
         then: yup
           .string()
           .required('Esse campo é obrigatório')
@@ -140,11 +141,11 @@ const RegisterEquipForm = () => {
     power: yup
       .string()
       .when('productType', {
-        is: 'STABILIZER',
+        is: 'Estabilizador',
         then: yup.string().required('Esse campo é obrigatório')
       })
       .when('productType', {
-        is: 'NOBREAK',
+        is: 'Nobreak',
         then: yup.string().required('Esse campo é obrigatório')
       })
       .test('valida campo', 'Apenas números', (value) => {
@@ -152,12 +153,12 @@ const RegisterEquipForm = () => {
           return /^[0-9]/.test(value)
         } else return true
       }),
-    unitId: yup.string().trim().required('Esse campo é obrigatório'),
     description: yup.string().min(3).max(250).trim()
   })
   const formik = useFormik({
     initialValues: {
       productType: '',
+      estado: '',
       tippingNumber: '',
       brand: '',
       serialNumber: '',
@@ -180,11 +181,12 @@ const RegisterEquipForm = () => {
     onSubmit: async (values) => {
       const body = {
         type: values.productType,
+        estado: values.estado,
         tippingNumber: values.tippingNumber,
         brandName: values.brand,
         serialNumber: values.serialNumber,
         model: values.model,
-        status: 'TECHNICAL_RESERVE',
+        situacao: 'Reserva Técnica',
         acquisitionName: values.acquisitionType,
         acquisitionDate: values.acquisitionDate,
         invoiceNumber: values.invoiceNumber,
@@ -198,7 +200,9 @@ const RegisterEquipForm = () => {
         initialUseDate:
           values.initialUseDate !== '' ? new Date(values.initialUseDate) : null,
         power: values.power !== '' ? values.power : null,
-        unitId: values.unitId,
+        unitId: units.filter(
+          (x) => x.name === 'Divisão de Suporte Técnico em Informática'
+        )[0].id, // Define como unidade padrão a DSTI
         description: values.description !== '' ? values.description : null
       }
       const formattedBody = Object.entries(body)
@@ -236,14 +240,14 @@ const RegisterEquipForm = () => {
           <FormContainer>
             <Autocomplete
               disablePortal
-              id="unitId-input"
+              id="productType-input"
               options={[
-                { value: 'CPU', label: 'CPU' },
-                { label: 'Monitor', value: 'MONITOR' },
-                { label: 'Nobreak', value: 'NOBREAK' },
-                { label: 'Escaneador', value: 'SCANNER' },
-                { label: 'Estabilizador', value: 'STABILIZER' },
-                { value: 'WEBCAM', label: 'Webcam' }
+                { label: 'CPU', value: 'CPU' },
+                { label: 'Escaneador', value: 'Escaneador' },
+                { label: 'Estabilizador', value: 'Estabilizador' },
+                { label: 'Monitor', value: 'Monitor' },
+                { label: 'Nobreak', value: 'Nobreak' },
+                { label: 'Webcam', value: 'Webcam' }
               ]}
               getOptionLabel={(option) => option.label}
               renderInput={(params) => (
@@ -263,6 +267,44 @@ const RegisterEquipForm = () => {
               )}
               onChange={(_, value) =>
                 formik.setFieldValue('productType', value?.value)
+              }
+              fullWidth
+              className="autocomplete"
+              sx={{
+                padding: 0,
+                '& .MuiOutlinedInput-root': {
+                  padding: '0 !important'
+                },
+                '& .MuiAutocomplete-input': {
+                  padding: '16.5px !important'
+                }
+              }}
+            />
+            <Autocomplete
+              disablePortal
+              id="estado-input"
+              options={[
+                { label: 'Novo', value: 'Novo' },
+                { label: 'Usado', value: 'Usado' }
+              ]}
+              getOptionLabel={(option) => option.label}
+              renderInput={(params) => (
+                <StyledTextField
+                  {...params}
+                  label="Estado do equipamento"
+                  id="estado-input-select-label"
+                  data-testid="estado-select"
+                  helperText={
+                    formik.touched.productType && formik.errors.productType
+                  }
+                  error={
+                    formik.touched.productType &&
+                    Boolean(formik.errors.productType)
+                  }
+                />
+              )}
+              onChange={(_, value) =>
+                formik.setFieldValue('estado', value?.value)
               }
               fullWidth
               className="autocomplete"
@@ -395,34 +437,6 @@ const RegisterEquipForm = () => {
                 Boolean(formik.errors.invoiceNumber)
               }
             />
-            <Autocomplete
-              disablePortal
-              id="unitId-input"
-              options={units ?? []}
-              getOptionLabel={(option) =>
-                `${option.name} - ${option.localization}`
-              }
-              renderInput={(params) => (
-                <StyledTextField
-                  {...params}
-                  label="Unidade"
-                  helperText={formik.touched.unitId && formik.errors.unitId}
-                  error={formik.touched.unitId && Boolean(formik.errors.unitId)}
-                />
-              )}
-              onChange={(_, value) => formik.setFieldValue('unitId', value?.id)}
-              fullWidth
-              className="autocomplete"
-              sx={{
-                padding: 0,
-                '& .MuiOutlinedInput-root': {
-                  padding: '0 !important'
-                },
-                '& .MuiAutocomplete-input': {
-                  padding: '16.5px !important'
-                }
-              }}
-            />
 
             {formik.values.productType === 'CPU' && (
               <>
@@ -463,8 +477,8 @@ const RegisterEquipForm = () => {
                 <Autocomplete
                   disablePortal
                   options={[
-                    { value: 'SSD', label: 'SSD' },
-                    { label: 'HD', value: 'HD' }
+                    { label: 'HD', value: 'HD' },
+                    { label: 'SSD', value: 'SSD' }
                   ]}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
@@ -515,17 +529,18 @@ const RegisterEquipForm = () => {
                 />
               </>
             )}
-            {formik.values.productType === 'MONITOR' && (
+            
+            {formik.values.productType === 'Monitor' && (
               <>
                 <Autocomplete
                   disablePortal
                   options={[
+                    { label: 'IPS', value: 'IPS' },
                     { label: 'LCD', value: 'LCD' },
-                    { label: 'OLED', value: 'OLED' },
                     { label: 'LED', value: 'LED' },
+                    { label: 'OLED', value: 'OLED' },
                     { label: 'TN', value: 'TN' },
-                    { label: 'VA', value: 'VA' },
-                    { label: 'IPS', value: 'IPS' }
+                    { label: 'VA', value: 'VA' }                    
                   ]}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => (
@@ -574,8 +589,8 @@ const RegisterEquipForm = () => {
                 />
               </>
             )}
-            {(formik.values.productType === 'NOBREAK' ||
-              formik.values.productType === 'STABILIZER') && (
+            {(formik.values.productType === 'Nobreak' ||
+              formik.values.productType === 'Estabilizador') && ( 
               <StyledTextField
                 id="power-input"
                 data-testid="power-input"

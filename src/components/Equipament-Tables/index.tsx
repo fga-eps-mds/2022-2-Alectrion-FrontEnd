@@ -15,6 +15,7 @@ import {
 import { EditButton } from './../edit-button/index'
 import { useContext } from 'react'
 import { AuthContext } from '../../contexts/auth'
+import { dateFormat } from '../../utils/dateFormat'
 interface AuthContextType {
   user: {
     role: string
@@ -28,7 +29,9 @@ export interface equipament {
 
   type: string
 
-  status: string
+  situacao: string
+
+  estado: string
 
   model: string
 
@@ -52,7 +55,7 @@ export interface equipament {
 
   brand: any
 
-  acquisition: any
+  acquisitionDate: Date
 
   unit: {
     name: string
@@ -86,11 +89,12 @@ export default function EquipamentsTables({ equipaments }: propType) {
         <TableHead>
           <TableRow>
             <StyledTableCell align="center">N° Tombamento </StyledTableCell>
-            <StyledTableCell align="center">N° Serie</StyledTableCell>
-            <StyledTableCell align="center">Status</StyledTableCell>
+            <StyledTableCell align="center">N° Série</StyledTableCell>
+            <StyledTableCell align="center">Situação</StyledTableCell> {/* renomeamos status para situação */}
             <StyledTableCell align="center">Unidade</StyledTableCell>
             <StyledTableCell align="center">Data de aquisição</StyledTableCell>
             <StyledTableCell align="center">Tipo Equipamento</StyledTableCell>
+            <StyledTableCell align="center">Estado</StyledTableCell> {/* novo/usuado */}
             <StyledTableCell align="center">Marca</StyledTableCell>
             <StyledTableCell align="center">Modelo</StyledTableCell>
             <StyledTableCell align="center">Processador</StyledTableCell>
@@ -106,7 +110,11 @@ export default function EquipamentsTables({ equipaments }: propType) {
             <StyledTableCell align="center">Potência</StyledTableCell>
             <StyledTableCell align="center" />
             <StyledTableCell align="center" />
-            <StyledTableCell align="center" />
+            <>
+              {role === 'administrador' && ( // Ajusta espaço da tabela do Administrador
+                <StyledTableCell align="center" />
+              )}
+            </>
             <>
               {(role === 'administrador' || role === 'gerente') && ( // Ajusta espaço da tabela do Administrador e Gerente
                 <StyledTableCell align="center" />
@@ -125,17 +133,20 @@ export default function EquipamentsTables({ equipaments }: propType) {
                   {equipaments.serialNumber}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {equipaments.status}
+                  {equipaments.situacao}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {equipaments.unit.name}
-                  {equipaments.unit.localization}
+                  {`${equipaments.unit.name} - ${equipaments.unit.localization}`}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {equipaments.createdAt?.substring(0, 10)}
+                  {dateFormat(equipaments.acquisitionDate)}
+                  {/* Corrige data que estava errada na tabela */}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {equipaments.type}
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  {equipaments.estado}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {equipaments.brand.name}
@@ -171,11 +182,15 @@ export default function EquipamentsTables({ equipaments }: propType) {
                     </StyledTableCell>
                   )}
                 </>
-                <StyledTableCell align="center">
-                  <Button disabled>
-                    <DeleteIcon />
-                  </Button>
-                </StyledTableCell>
+                <>
+                  {role === 'administrador' && ( // Apenas o perfil de administrador tem acesso ao botao de exluir o equipamento
+                    <StyledTableCell align="center">
+                      <Button disabled>
+                        <DeleteIcon />
+                      </Button>
+                    </StyledTableCell>
+                  )}
+                </>
                 <StyledTableCell align="center">
                   <ButtonDownloadEquipament disabled>
                     Baixar
