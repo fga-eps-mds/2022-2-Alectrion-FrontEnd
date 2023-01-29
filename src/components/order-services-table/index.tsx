@@ -114,10 +114,7 @@ export default function OderServiceTable({
               {!isConsulta && (
                 <StyledTableCell
                   align="center"
-                  onClick={() =>
-                    navigate('/order-service-print', {
-                      state: { order: orderSerivce }
-                    })}
+                  onClick={() => navigate('/order-service-print')}
                   >
                   <PrintOSButton/>
                 </StyledTableCell>
