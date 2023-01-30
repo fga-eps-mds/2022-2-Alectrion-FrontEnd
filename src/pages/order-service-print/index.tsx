@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { Button } from '../../components/button'
 import OderServiceTable from '../../components/order-services-table'
+import OderServicePrintTable from '../../components/order-services-print-table'
 import { Container, StyledCard, StyledTextField, ButtonGroup } from './styles'
 import { theme } from '../../styles/theme'
 import api from '../../api/config'
@@ -30,6 +31,24 @@ interface OrderService {
     type: string
     tippingNumber: string
     status: string
+    serialNumber: string
+    situacao: string
+    estado: string
+    model: string
+    description?: string
+    initialUseDate: string
+    acquisitionDate: Date
+    screenSize?: string
+    invoiceNumber: string
+    power?: string
+    screenType?: string
+    processor?: string
+    storageType?: string
+    storageAmount?: string
+    brandName: string
+    acquisitionName: string
+    unitId: string
+    ram_size?: string
   }
 }
 interface filterType {
@@ -91,7 +110,15 @@ export const OrderPrint = () => {
       <Container>
         <Typography variant="h4" align='center' sx={{ fontWeight: 'bold' }}>
           Imprime ordem de serviço
+          <p></p>
         </Typography>
+        <OderServicePrintTable
+          orderServicesPrint={orderServices}
+          isConsulta={isConsulta}
+        />
+        
+        <p></p>
+        
         <Button
                 width="240px"
                 height="62px"
@@ -100,7 +127,8 @@ export const OrderPrint = () => {
                 onClick={() => navigate('/order-services')}
                 borderRadius="10px">
                 Voltar OS
-              </Button>
+        </Button>
+        
       </Container>
       <FilterOrderService
         open={openFilter}
