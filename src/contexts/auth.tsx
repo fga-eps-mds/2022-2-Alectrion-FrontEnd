@@ -8,6 +8,7 @@ type LoginResponse = {
   email: string
   name: string
   role: string
+  job?: string
 }
 
 type SignInProps = {
@@ -50,12 +51,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
       '/user/login',
       userData
     )
-    const { token, expireIn, email, name, role } = data
+    const { token, expireIn, email, name, role, job } = data
     setAuthState('authenticated')
-    setUser({ token, expireIn, email, name, role })
+    setUser({ token, expireIn, email, name, role, job })
     localStorage.setItem(
       '@App:user',
-      JSON.stringify({ token, expireIn, email, name, role })
+      JSON.stringify({ token, expireIn, email, name, role, job })
     )
     localStorage.setItem('@App:token', token)
 

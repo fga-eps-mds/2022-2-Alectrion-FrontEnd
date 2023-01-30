@@ -46,7 +46,9 @@ export interface SearchParams {
 
   type: string
 
-  status: string
+  situacao: string
+
+  estado: string
 
   model: string
 
@@ -86,7 +88,9 @@ interface equipament {
 
   type: string
 
-  status: string
+  situacao: string
+
+  estado: string
 
   model: string
 
@@ -141,7 +145,9 @@ export default function ScreenEquipaments() {
 
     type: '',
 
-    status: '',
+    estado: '',
+
+    situacao: '',
 
     model: '',
 
@@ -231,11 +237,12 @@ export default function ScreenEquipaments() {
   const cabecalhos = [
     { label: 'Nº de Tombamento', key: 'tippingNumber' },
     { label: 'Nº Série', key: 'serialNumber' },
-    { label: 'Status', key: 'status' },
+    { label: 'Situação', key: 'situacao' },
     { label: 'Unidade', key: 'unit.name' },
     { label: 'Unidade', key: 'unit.localization' },
     { label: 'Data de aquisição', key: 'createdAt' },
-    { label: 'Tipo Equipamento', key: 'type' },
+    { label: 'Tipo Equipamento', key: 'type' },    
+    { label: 'Estado', key: 'estado' },
     { label: 'Marca', key: 'brand.name' },
     { label: 'Modelo', key: 'model' },
     { label: 'Processador', key: 'processor' },
@@ -265,10 +272,10 @@ export default function ScreenEquipaments() {
         <BoxInput>
           <SearchIcon sx={{ marginBottom: '3px' }} />
           <Input
-            id="serialNumber"
-            name="serialNumber"
+            id="searchField"
+            name="search"
             sx={{ flex: 0.9 }}
-            placeholder="N° Tombamento ou N° serie"
+            placeholder="Nº de Série/Tombamento"
             value={basicSearch}
             onChange={handleChange}
             onKeyPress={(ev) => {
@@ -323,34 +330,46 @@ export default function ScreenEquipaments() {
                     textAlign: 'center'
                   }}
                   inputProps={{ 'aria-label': 'Without label' }}>
-                  <MenuItem value="" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="" 
+                    sx={{ justifyContent: 'center' }}>
                     <em>Tipo de Equipamento</em>
                   </MenuItem>
-                  <MenuItem value="CPU" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="CPU" 
+                    sx={{ justifyContent: 'center' }}>
                     CPU
                   </MenuItem>
-                  <MenuItem value="WEBCAM" sx={{ justifyContent: 'center' }}>
-                    WebCam
+                  <MenuItem 
+                    value="Escaneador" 
+                    sx={{ justifyContent: 'center' }}>
+                    Escaneador
                   </MenuItem>
-                  <MenuItem value="MONITOR" sx={{ justifyContent: 'center' }}>
-                    Monitor
-                  </MenuItem>
-                  <MenuItem value="NOBREAK" sx={{ justifyContent: 'center' }}>
-                    Nobreak
-                  </MenuItem>
-                  <MenuItem value="SCANNER" sx={{ justifyContent: 'center' }}>
-                    Scanner
-                  </MenuItem>
-                  <MenuItem
-                    value="STABILIZER"
+                  <MenuItem 
+                    value="Estabilizador" 
                     sx={{ justifyContent: 'center' }}>
                     Estabilizador
                   </MenuItem>
+                  <MenuItem 
+                    value="Monitor" 
+                    sx={{ justifyContent: 'center' }}>
+                    Monitor
+                  </MenuItem>
+                  <MenuItem 
+                    value="Nobreak" 
+                    sx={{ justifyContent: 'center' }}>
+                    Nobreak
+                  </MenuItem>
+                  <MenuItem 
+                    value="Webcam" 
+                    sx={{ justifyContent: 'center' }}>
+                    WebCam
+                  </MenuItem>
                 </StyledSelect>
                 <StyledSelect
-                  id="status"
-                  name="status"
-                  value={formik.values.status}
+                  id="situacao"
+                  name="situacao"
+                  value={formik.values.situacao}
                   onChange={formik.handleChange}
                   displayEmpty
                   sx={{
@@ -358,27 +377,33 @@ export default function ScreenEquipaments() {
                     textAlign: 'center'
                   }}
                   inputProps={{ 'aria-label': 'Without label' }}>
-                  <MenuItem value="" sx={{ justifyContent: 'center' }}>
-                    <em>Status</em>
+                  <MenuItem 
+                    value="" 
+                    sx={{ justifyContent: 'center' }}>
+                    <em>Situação</em>
                   </MenuItem>
-                  <MenuItem value="ACTIVE" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="Ativo" 
+                    sx={{ justifyContent: 'center' }}>
                     Ativo
                   </MenuItem>
-                  <MenuItem
-                    value="ACTIVE_BY_DEMISE"
+                  <MenuItem 
+                    value="Ativo Empréstimo" 
                     sx={{ justifyContent: 'center' }}>
-                    Ativo mas quebrado
-                  </MenuItem>
-                  <MenuItem value="INACTIVE" sx={{ justifyContent: 'center' }}>
-                    Inativo
+                    Ativo Empréstimo
                   </MenuItem>
                   <MenuItem
-                    value="MAINTENANCE"
+                    value="Baixado"
+                    sx={{ justifyContent: 'center' }}>
+                    Baixado
+                  </MenuItem>
+                  <MenuItem
+                    value="Manutenção"
                     sx={{ justifyContent: 'center' }}>
                     Manutenção
                   </MenuItem>
                   <MenuItem
-                    value="TECHNICAL_RESERVE"
+                    value="Reserva Técnica"
                     sx={{ justifyContent: 'center' }}>
                     Reserva Técnica
                   </MenuItem>
@@ -401,13 +426,19 @@ export default function ScreenEquipaments() {
                     textAlign: 'center'
                   }}
                   inputProps={{ 'aria-label': 'Without label' }}>
-                  <MenuItem value="" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="" 
+                    sx={{ justifyContent: 'center' }}>
                     <em>Tipo de Armazenamento</em>
                   </MenuItem>
-                  <MenuItem value="HD" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="HD" 
+                    sx={{ justifyContent: 'center' }}>
                     HD
                   </MenuItem>
-                  <MenuItem value="SSD" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="SSD" 
+                    sx={{ justifyContent: 'center' }}>
                     SSD
                   </MenuItem>
                 </StyledSelect>
@@ -422,26 +453,40 @@ export default function ScreenEquipaments() {
                     textAlign: 'center'
                   }}
                   inputProps={{ 'aria-label': 'Without label' }}>
-                  <MenuItem value="" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="" 
+                    sx={{ justifyContent: 'center' }}>
                     <em>Tipo de Tela</em>
                   </MenuItem>
-                  <MenuItem value="LCD" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="IPS" 
+                    sx={{ justifyContent: 'center' }}>
+                    IPS
+                  </MenuItem>
+                  <MenuItem 
+                    value="LCD" 
+                    sx={{ justifyContent: 'center' }}>
                     LCD
                   </MenuItem>
-                  <MenuItem value="OLED" sx={{ justifyContent: 'center' }}>
-                    OLED
-                  </MenuItem>
-                  <MenuItem value="LED" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="LED" 
+                    sx={{ justifyContent: 'center' }}>
                     LED
                   </MenuItem>
-                  <MenuItem value="TN" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="OLED" 
+                    sx={{ justifyContent: 'center' }}>
+                    OLED
+                  </MenuItem>
+                  <MenuItem 
+                    value="TN" 
+                    sx={{ justifyContent: 'center' }}>
                     TN
                   </MenuItem>
-                  <MenuItem value="VA" sx={{ justifyContent: 'center' }}>
+                  <MenuItem 
+                    value="VA" 
+                    sx={{ justifyContent: 'center' }}>
                     VA
-                  </MenuItem>
-                  <MenuItem value="IPS" sx={{ justifyContent: 'center' }}>
-                    IPS
                   </MenuItem>
                 </StyledSelect>
               </Box>
@@ -450,6 +495,31 @@ export default function ScreenEquipaments() {
                   flexGrow: 1,
                   display: { xs: 'none', md: 'flex' },
                   mt: '25px'
+                }}>
+                <StyledTextField
+                  fullWidth
+                  id="tippingNumber"
+                  name="tippingNumber"
+                  label="Nº de tombamento"
+                  value={formik.values.tippingNumber}
+                  onChange={formik.handleChange}
+                  sx={{ ml: '30px' }}
+                />
+                <StyledTextField
+                  fullWidth
+                  id="serialNumber"
+                  name="serialNumber" 
+                  label="Nº de série"
+                  value={formik.values.serialNumber}
+                  onChange={formik.handleChange}
+                  sx={{ ml: '90px' }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  mt: '50px'
                 }}>
                 <StyledTextField
                   fullWidth
@@ -536,12 +606,55 @@ export default function ScreenEquipaments() {
                   sx={{ ml: '30px' }}
                 />
                 <StyledTextField
-                  type="date"
-                  id="createdAt"
-                  name="createdAt"
-                  value={formik.values.initialUseDate}
+                  fullWidth
+                  id="storageAmount"
+                  name="storageAmount"
+                  label="Espaço de amarzenamento"
+                  value={formik.values.storageAmount}
                   onChange={formik.handleChange}
                   sx={{ ml: '90px' }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  mt: '50px'
+                }}>
+                <StyledSelect
+                  id="estado"
+                  name="estado"
+                  value={formik.values.storageType}
+                  onChange={formik.handleChange}
+                  displayEmpty
+                  sx={{
+                    marginLeft: '30px',
+                    textAlign: 'center'
+                  }}
+                  inputProps={{ 'aria-label': 'Without label' }}>
+                  <MenuItem 
+                    value="" 
+                    sx={{ justifyContent: 'center' }}>
+                    <em>Estado</em>
+                  </MenuItem>
+                  <MenuItem 
+                    value="Novo" 
+                    sx={{ justifyContent: 'center' }}>
+                    Novo
+                  </MenuItem>
+                  <MenuItem 
+                    value="Usado" 
+                    sx={{ justifyContent: 'center' }}>
+                    Usado
+                  </MenuItem>
+                </StyledSelect>
+                <StyledTextField
+                  type="date"
+                  id="acquisitionDate"
+                  name="acquisitionDate"
+                  value={formik.values.acquisitionDate}
+                  onChange={formik.handleChange}
+                  sx={{ ml: '95px' }}
                 />
               </Box>
             </FormControl>

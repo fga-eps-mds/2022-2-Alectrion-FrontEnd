@@ -30,7 +30,7 @@ const SelectProfile: React.FC<PropTypes> = ({
   onChange,
   error,
   testid,
-  size
+  size,
 }) => {
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -52,10 +52,12 @@ const SelectProfile: React.FC<PropTypes> = ({
           error={error}
           data-testid={testid}
           size={size}>
+               
           <MenuItem value={'basico'}>Básico</MenuItem>
-          <MenuItem value={'administrador'}>Admin</MenuItem>
-          <MenuItem value={'gerente'}>Gerente</MenuItem>
           <MenuItem value={'consulta'}>Consulta</MenuItem>
+          <MenuItem value={'gerente'}>Gerente</MenuItem>
+          <MenuItem value={'administrador'}>Admin</MenuItem>
+
         </StyledSelect>
       </FormControl>
     </Box>

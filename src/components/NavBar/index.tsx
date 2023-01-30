@@ -16,6 +16,7 @@ import Stack from '@mui/material/Stack'
 import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import img from './assets/AlectrionLogo2.png'
 import { AuthContext } from '../../contexts/auth'
+import { stringAvatar } from '../../utils/utils'
 
 interface AuthContextType {
   user: {
@@ -37,17 +38,6 @@ const NavBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
-  }
-
-  function stringAvatar(name: string) {
-    let word = ''
-    name.split(' ').forEach((name) => (word += name[0]))
-    return {
-      sx: {
-        color: '#000'
-      },
-      children: word
-    }
   }
 
   return (

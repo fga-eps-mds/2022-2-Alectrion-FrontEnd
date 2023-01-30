@@ -25,7 +25,7 @@ interface OrderService {
   equipment: {
     type: string
     tippingNumber: string
-    status: string
+    situacao: string
   }
 }
 interface OrderServicesProps {

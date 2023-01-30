@@ -23,9 +23,10 @@ export interface User {
 interface propType {
   users: User[]
   isEditor: boolean
+  isAdmin: boolean
 }
 
-export default function UserTables({ users, isEditor }: propType) {
+export default function UserTables({ users, isEditor, isAdmin }: propType) {
   const navigate = useNavigate()
   return (
     <TableContainer
@@ -56,16 +57,16 @@ export default function UserTables({ users, isEditor }: propType) {
               <StyledTableCell align="center">{user.email}</StyledTableCell>
               <StyledTableCell align="center">{user.role}</StyledTableCell>
               <StyledTableCell align="center">{user.job}</StyledTableCell>
-              {isEditor && (
-                <StyledTableCell
-                  align="center"
-                  onClick={() =>
-                    navigate('/edit-user', { state: { userId: user.id } })
-                  }>
-                  <EditButton data-testid="edit-user-button" />
-                  Editar
-                </StyledTableCell>
-              )}
+ 
+                {(isAdmin || (!isAdmin && isEditor && user.role !== 'administrador')) &&
+                  (<StyledTableCell
+                    align="center"
+                    onClick={() =>
+                      navigate('/edit-user', { state: { userId: user.id } })
+                    }>    
+                    <EditButton data-testid="edit-user-button" />
+                    <>Editar</>
+                  </StyledTableCell>)}
             </StyledTableRow>
           ))}
         </TableBody>

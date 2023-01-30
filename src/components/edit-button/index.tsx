@@ -17,7 +17,7 @@ export const EditButton = (props: StyledButton) => {
   const role = user?.role
   return (
     <>
-      {role === 'administrador' && (
+      {(role === 'administrador' || role === 'gerente') && (
         <StyledEditButton {...props} data-testid="button">
           <EditIcon />
           {props.children}

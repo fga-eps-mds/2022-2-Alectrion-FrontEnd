@@ -5,18 +5,24 @@ import UserLoginScreen from './index'
 import Providers from '../../utils/test-utils'
 
 test('login to the application', () => {
-  render(
-    <Providers>
-      <UserLoginScreen />
-    </Providers>
-  )
+    const location = {
+        state: {
+            userId: "1",
+        },
+        key: "teste",
+    };
+    render(
+        <Providers location={location}>
+            <UserLoginScreen />
+        </Providers>
+    )
 
-  const usernameInput = screen.getByLabelText('Username')
-  userEvent.type(usernameInput, 'fulano')
+    const usernameInput = screen.getByLabelText('Username')
+    userEvent.type(usernameInput, 'fulano')
 
-  const passwordInput = screen.getByLabelText('Senha')
-  userEvent.type(passwordInput, '123456')
+    const passwordInput = screen.getByLabelText('Senha')
+    userEvent.type(passwordInput, '123456')
 
-  const loginButton = screen.getByRole('button', { name: 'Login' })
-  userEvent.click(loginButton)
+    const loginButton = screen.getByRole('button', { name: 'Login' })
+    userEvent.click(loginButton)
 })
