@@ -5,6 +5,7 @@ import { Typography } from '@mui/material'
 import FilterListIcon from '@mui/icons-material/FilterList'
 import { Button } from '../../components/button'
 import OderServiceTable from '../../components/order-services-table'
+import OderServicePrintTable from '../../components/order-services-print-table'
 import { Container, StyledCard, StyledTextField, ButtonGroup } from './styles'
 import { theme } from '../../styles/theme'
 import api from '../../api/config'
@@ -29,7 +30,25 @@ interface OrderService {
   equipment: {
     type: string
     tippingNumber: string
+    status: string
+    serialNumber: string
     situacao: string
+    estado: string
+    model: string
+    description?: string
+    initialUseDate: string
+    acquisitionDate: Date
+    screenSize?: string
+    invoiceNumber: string
+    power?: string
+    screenType?: string
+    processor?: string
+    storageType?: string
+    storageAmount?: string
+    brandName: string
+    acquisitionName: string
+    unitId: string
+    ram_size?: string
   }
 }
 interface filterType {
@@ -38,12 +57,12 @@ interface filterType {
   equipment?: string
   serialNumber?: string
   type?: string
-  situacao?: string
+  status?: string
   sender?: string
   date?: string
 }
 
-export const OrderServices = () => {
+export const OrderPrint = () => {
   const navigate = useNavigate()
   const [orderServices, setOrderServices] = useState<OrderService[]>([])
   const [tippingNumber, setTippingNumber] = useState('')
@@ -61,7 +80,7 @@ export const OrderServices = () => {
       sender: values?.senderName,
       date: values?.date,
       tippingNumber: values?.tippingNumber,
-      situacao: values?.situacao,
+      status: values?.status,
       type: values?.productType
     })
   }
@@ -89,66 +108,27 @@ export const OrderServices = () => {
   return (
     <>
       <Container>
-        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-          Ordem de serviço
+        <Typography variant="h4" align='center' sx={{ fontWeight: 'bold' }}>
+          Imprime ordem de serviço
+          <p></p>
         </Typography>
-        <StyledCard>
-          <StyledTextField
-            size="small"
-            id="filter"
-            type="text"
-            name="tippingNumber"
-            label="Número de Tombamento"
-            variant="outlined"
-            onChange={(e) => {
-              setTippingNumber(e.target.value)
-            }}
-            onKeyUp={(event) => {
-              if (event.key === 'Enter') {
-                toast.success('Filtro aplicado')
-                setFilters({ ...filters, tippingNumber })
-              }
-            }}
-          />
-          <ButtonGroup>
-            <Button
-              textColor="#000"
-              styledColor={theme.palette.grey[500]}
-              width="180px"
-              height="40px"
-              borderRadius="10px"
-              onClick={() => setOpenFilter(true)}
-              endIcon={<FilterListIcon />}>
-              Filtros
-            </Button>
-            {Object.entries(filters).length !== 0 && (
-              <Button
-                textColor="#000"
-                styledColor={theme.palette.grey[500]}
-                width="180px"
-                height="40px"
-                borderRadius="10px"
-                onClick={() => setFilters({})}>
-                Limpar Filtros
-              </Button>
-            )}
-            {role !== 'consulta' && ( // Apenas o perfil de consulta não tem acesso ao botão de cadastro de equipamento
-              <Button
+        <OderServicePrintTable
+          orderServicesPrint={orderServices}
+          isConsulta={isConsulta}
+        />
+        
+        <p></p>
+        
+        <Button
                 width="240px"
                 height="62px"
                 textColor="#FFFFFF"
                 styledColor="#16878C"
-                onClick={() => navigate('/create-order-service')}
+                onClick={() => navigate('/order-services')}
                 borderRadius="10px">
-                Cadastrar OS
-              </Button>
-            )}
-          </ButtonGroup>
-        </StyledCard>
-        <OderServiceTable
-          orderServices={orderServices}
-          isConsulta={isConsulta}
-        />
+                Voltar OS
+        </Button>
+        
       </Container>
       <FilterOrderService
         open={openFilter}

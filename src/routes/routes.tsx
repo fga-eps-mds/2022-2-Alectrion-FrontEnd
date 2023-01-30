@@ -15,10 +15,13 @@ import EditUser from '../pages/EditUser'
 import NavBar from '../components/NavBar'
 import ScreenEquipaments from '../pages/ScreenEquipaments'
 import OrderRegister from '../pages/order-service'
+import { OrderPrint } from '../pages/order-service-print'
 import { CircularProgress } from '@mui/material'
 import EquipRegister from '../pages/equipment-register'
 import { OrderServices } from '../pages/order-services'
+import OrderServiceUpdateForm from '../pages/order-service-edit'
 import ProfileUser from '../pages/user-profile'
+
 type AuthRouteProps = {
   children: ReactNode
 }
@@ -69,6 +72,24 @@ export const SignRoutes = () => {
             <AuthRoutes>
               <NavBar />
               <OrderServices />
+            </AuthRoutes>
+          }
+        />
+        <Route
+          path="/order-service-print"
+          element={
+            <AuthRoutes>
+              <NavBar />
+              <OrderPrint />
+            </AuthRoutes>
+          }
+        />
+        <Route
+          path="/order-service-update-form"
+          element={
+            <AuthRoutes>
+              <NavBar />
+              <OrderServiceUpdateForm />
             </AuthRoutes>
           }
         />

@@ -1,3 +1,4 @@
+// import { OrderPrint }  from "../../pages/order-service-print';
 import { useFormik } from 'formik'
 import { toast } from 'react-toastify'
 import * as yup from 'yup'
@@ -28,7 +29,7 @@ type Props = {
   units: { id: string; name: string; localization: string }[] | undefined
 }
 
-const RegisterOrderServiceForm = ({
+const OrderPrintData = ({
   initialData,
   user,
   handleTippingNumberChange,
@@ -57,7 +58,7 @@ const RegisterOrderServiceForm = ({
         } else return false
       }),
     tippingNumber: yup.string().trim().required('Esse campo é obrigatório'),
-    situacao: yup.string().trim(),
+    status: yup.string().trim(),
     destination: yup.string().trim().required('Esse campo é obrigatório'),
     productType: yup.string().trim(),
     description: yup.string().trim().max(250)
@@ -69,7 +70,7 @@ const RegisterOrderServiceForm = ({
       senderFunctionalNumber: '',
       date: new Date().toISOString().split('T')[0],
       tippingNumber: initialData?.tippingNumber,
-      situacao: initialData?.formattedStatus,
+      status: initialData?.formattedStatus,
       productType: initialData?.type,
       description: '',
       userName: user.name,
@@ -192,12 +193,12 @@ const RegisterOrderServiceForm = ({
                 fullWidth
                 InputLabelProps={{ shrink: true }}
                 type="text"
-                name="situacao"
+                name="status"
                 variant="outlined"
                 aria-readonly
-                value={formik.values.situacao}
-                helperText={formik.touched.situacao && formik.errors.situacao}
-                error={formik.touched.situacao && Boolean(formik.errors.situacao)}
+                value={formik.values.status}
+                helperText={formik.touched.status && formik.errors.status}
+                error={formik.touched.status && Boolean(formik.errors.status)}
               />
               <StyledTextField
                 InputLabelProps={{ shrink: true }}
@@ -326,4 +327,4 @@ const RegisterOrderServiceForm = ({
     </Container>
   )
 }
-export default RegisterOrderServiceForm
+export default OrderPrintData
