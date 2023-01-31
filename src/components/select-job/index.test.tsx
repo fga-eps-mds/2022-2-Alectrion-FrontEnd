@@ -4,13 +4,21 @@ import userEvent from '@testing-library/user-event'
 import Providers from '../../utils/test-utils'
 
 test('Select job unit test', async () => {
-  render(
-    <Providers>
-      <SelectJob testid="job-select-id" />
-    </Providers>
-  )
+    const location = {
+        state: {
+            userId: "1",
+        },
+        user: {
+            role: "gerente"
+        }
+    };
+    render(
+        <Providers location={location}>
+            <SelectJob testid="job-select-id" />
+        </Providers>
+    )
 
-  const profileInput = getByRole(screen.getByTestId('job-select-id'), 'button')
-  userEvent.click(profileInput)
-  await waitFor(() => userEvent.click(screen.getByText(/Coordenador/i)))
+    const profileInput = getByRole(screen.getByTestId('job-select-id'), 'button')
+    userEvent.click(profileInput)
+    await waitFor(() => userEvent.click(screen.getByText(/Coordenador/i)))
 })

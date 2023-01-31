@@ -62,6 +62,19 @@ function App() {
       })
     })
   }, [])
+  React.useEffect(() => {
+    const handleTabClose =(event: { preventDefault: () => void; returnValue: string }) => {
+      event.preventDefault();
+
+      return (event.returnValue =  " " );
+    };
+
+    window.addEventListener('beforeunload', handleTabClose);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleTabClose);
+    };
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>

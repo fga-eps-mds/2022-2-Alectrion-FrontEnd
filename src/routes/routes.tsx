@@ -18,6 +18,7 @@ import OrderRegister from '../pages/order-service'
 import { CircularProgress } from '@mui/material'
 import EquipRegister from '../pages/equipment-register'
 import { OrderServices } from '../pages/order-services'
+import RegisterTerms from '../pages/terms-register'
 import ProfileUser from '../pages/user-profile'
 type AuthRouteProps = {
   children: ReactNode
@@ -95,7 +96,16 @@ export const SignRoutes = () => {
           element={
             <AuthRoutes>
               <NavBar />
-              <EquipRegister />
+              <EquipRegister/>
+            </AuthRoutes>
+          }
+        />
+        <Route
+          path="/movimentacoes"
+          element={
+            <AuthRoutes>
+              <NavBar />
+              <RegisterTerms />
             </AuthRoutes>
           }
         />

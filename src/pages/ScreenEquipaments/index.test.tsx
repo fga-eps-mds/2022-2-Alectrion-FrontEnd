@@ -3,9 +3,15 @@ import ScreenEquipaments from './index'
 import Providers from './../../utils/test-utils'
 
 test('should render equipments data', async () => {
-  render(
-    <Providers>
-      <ScreenEquipaments />
-    </Providers>
-  )
+    const location = {
+        state: {
+            userId: "1",
+        },
+        key: "teste",
+    };
+    render(
+        <Providers location={location}>
+            <ScreenEquipaments />
+        </Providers>
+    )
 })

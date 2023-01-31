@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import {
   Container,
   FindContainer,
@@ -10,7 +10,12 @@ import {
   StyledSelect,
   StyledTextField,
   ButtonClearFilters,
-  StyledGenerateButton
+  StyledGenerateButton,
+  StyledGenerateButton2,
+  MovimentScrenn,
+  MovimentScrennContent,
+  ContainerMov,
+  StyledDescTextField
 } from './style'
 import * as React from 'react'
 import { CSVLink } from 'react-csv'
@@ -32,6 +37,7 @@ import { toast } from 'react-toastify'
 import api from '../../api/config'
 import { AxiosResponse } from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { StyledTestButton } from '../../components/button/styles'
 import { AuthContext } from '../../contexts/auth'
 interface AuthContextType {
   user: {
@@ -132,9 +138,18 @@ interface equipament {
   id: string
 }
 
+interface unit {
+  name: string
+  id: string
+  localization: string
+}
+
 export default function ScreenEquipaments() {
   const [equipaments, setEquipaments] = useState<equipament[]>([])
   const [basicSearch, setbasicSearch] = useState<string>('')
+  const [selectedEquipments, setSelectedEquipments] = useState<Object>({})
+  const [units, setUnits] = useState<unit[]>([])
+
   const navigate = useNavigate()
   const { user } = useContext(AuthContext) as AuthContextType
   const role = user?.role
@@ -192,6 +207,52 @@ export default function ScreenEquipaments() {
     }
   })
 
+  const movementFormik = useFormik({
+    initialValues: {
+      userid: '',
+      equipments: [],
+      type: -1,
+      inchargename: '',
+      inchargerole: '',
+      chiefname: '',
+      chiefrole: '',
+      destination: '',
+      status: '',
+      description: ''
+    },
+
+    onSubmit: async (values) => {
+      const mockedUserId = '1f0fba7b-b937-4793-bc35-8f476e9e76e2'
+      const status = values.type == 1 ? 'Reserva Técnica' : 'Baixado'
+      const type = values.type == 3 ? 1 : values.type
+      const equipments = Object.keys(selectedEquipments)
+
+      const body = {
+        ...values,
+        status,
+        type,
+        equipments,
+        userid: mockedUserId,
+      }
+
+      const { data }: AxiosResponse<any> = await api.post(
+        'equipment/createMovement',
+        body
+      )
+
+      if(data.error)
+        toast.error(data.error)
+      else {
+        toast.success('Movimentação realizada com sucesso.')
+        getEquipaments()
+        setIsMovementModalOpen(false)
+        setSelectedEquipments({})
+      }
+    },
+
+    validateOnChange: false
+  })
+
   const getEquipaments = async (query?: SearchParams) => {
     try {
       const queryParams = new URLSearchParams('')
@@ -213,21 +274,36 @@ export default function ScreenEquipaments() {
       toast.error('Nenhum Equipamento encontrado')
     }
   }
-  const renderEquipmentTable = React.useCallback(() => {
-    return <EquipamentsTables equipaments={equipaments} />
-  }, [equipaments])
-  React.useEffect(() => {
+
+  useEffect(() => {
+    const getUnits = async () => {
+      try {
+        const { data }: AxiosResponse<unit[]> = await api.get(
+          '/equipment/getAllUnits'
+        )
+        setUnits(data)
+      } catch (error) {}
+    }
+
     getEquipaments()
+    getUnits()
   }, [])
 
   const [open, setOpen] = React.useState(false)
+  const [isMovementModalOpen, setIsMovementModalOpen] = React.useState(false)
 
   const handleClickOpen = () => {
     setOpen(true)
   }
+  const handleClickOpen2 = () => {
+    setIsMovementModalOpen(true)
+  }
 
   const handleClose = () => {
     setOpen(false)
+  }
+  const handleClose2 = () => {
+    setIsMovementModalOpen(false)
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -313,7 +389,9 @@ export default function ScreenEquipaments() {
           )}
         </Box>
       </FindContainer>
-      {renderEquipmentTable()}
+
+      <EquipamentsTables equipaments={equipaments} selectedEquipments={selectedEquipments} setSelectedEquipments={setSelectedEquipments} />
+      
       <FilterScrenn open={open}>
         <FilterScrennContent>
           <form onSubmit={formik.handleSubmit}>
@@ -692,9 +770,179 @@ export default function ScreenEquipaments() {
           </form>
         </FilterScrennContent>
       </FilterScrenn>
-      <StyledGenerateButton>
-        <CSVLink {...csvReport}>Gerar Relatório</CSVLink>
-      </StyledGenerateButton>
+      <div>
+        <StyledGenerateButton>
+          <CSVLink {...csvReport}>Gerar Relatório</CSVLink>
+        </StyledGenerateButton>
+        <StyledGenerateButton2 onClick={handleClickOpen2}>
+          Gerar Movimentação
+        </StyledGenerateButton2>
+      </div>
+
+      <MovimentScrenn open={isMovementModalOpen}>
+        <MovimentScrennContent>
+        <form onSubmit={movementFormik.handleSubmit}>
+          <FormControl>
+            <ContainerMov>
+            <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#ffffff'}}>
+              Movimentação
+            </Typography>
+            </ContainerMov>
+                <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+                  <StyledSelect
+                    id="type"
+                    name="type"
+                    value={movementFormik.values.type}
+                    onChange={movementFormik.handleChange}
+                    displayEmpty
+                    sx={{
+                      marginLeft: '30px',
+                      textAlign: 'center'
+                    }}
+                    inputProps={{ 'aria-label': 'Without label' }}>
+                    <MenuItem value={-1} sx={{ justifyContent: 'center' }}>
+                      <em>Tipo de Movimentação</em>
+                    </MenuItem>
+                    <MenuItem value={0} sx={{ justifyContent: 'center' }}>
+                      Empréstimo
+                    </MenuItem>
+                    <MenuItem value={1} sx={{ justifyContent: 'center' }}>
+                      Baixa: Reserva Técnica
+                    </MenuItem>
+                    <MenuItem value={3} sx={{ justifyContent: 'center' }}>
+                      Baixa: Sucata
+                    </MenuItem>
+                    <MenuItem value={2} sx={{ justifyContent: 'center' }}>
+                      Responsabilidade
+                    </MenuItem>
+                  </StyledSelect>
+                  <StyledSelect
+                    id="destination"
+                    name="destination"
+                    value={movementFormik.values.destination}
+                    onChange={movementFormik.handleChange}
+                    displayEmpty
+                    sx={{
+                      marginLeft: '100px',
+                      textAlign: 'center'
+                    }}
+                    inputProps={{ 'aria-label': 'Without label' }}>
+                      <MenuItem value="" sx={{ justifyContent: 'center' }}>
+                        <em>Unidade de Destino</em>
+                      </MenuItem>
+
+                      { units.map((unit) => {
+                        return (
+                          <MenuItem value={unit.id} sx={{ justifyContent: 'center' }}>
+                            <em>{ unit.name }</em>
+                          </MenuItem>
+                        )
+                      })}
+                  </StyledSelect>
+                </Box>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: { xs: 'none', md: 'flex' },
+                    mt: '25px'
+                  }}>
+                  <StyledTextField
+                    fullWidth
+                    id="inchargename"
+                    name="inchargename"
+                    label="Nome do responsável"
+                    value={movementFormik.values.inchargename}
+                    onChange={movementFormik.handleChange}
+                    sx={{ ml: '30px' }}
+                  />
+                  <StyledTextField
+                    fullWidth
+                    id="inchargerole"
+                    name="inchargerole"
+                    label="Cargo do responsável"
+                    value={movementFormik.values.inchargerole}
+                    onChange={movementFormik.handleChange}
+                    sx={{ ml: '90px' }}
+                  />
+                </Box>
+                <Box
+                  sx={{
+                    flexGrow: 1,
+                    display: { xs: 'none', md: 'flex' },
+                    mt: '50px'
+                  }}>
+                  <StyledTextField
+                    fullWidth
+                    id="chiefname"
+                    name="chiefname"
+                    label="Nome do chefe da DSTI"
+                    value={movementFormik.values.chiefname}
+                    onChange={movementFormik.handleChange}
+                    sx={{ ml: '30px' }}
+                  />
+                  <StyledTextField
+                    fullWidth
+                    id="chiefrole"
+                    name="chiefrole"
+                    label="Cargo do chefe da DSTI"
+                    value={movementFormik.values.chiefrole}
+                    onChange={movementFormik.handleChange}
+                    sx={{ ml: '90px' }}
+                  />
+                </Box>
+
+                <Box sx={{
+                  flexGrow: 1,
+                  display: { xs: 'none', md: 'flex' },
+                  mt: '50px'
+                }}>
+                  <StyledDescTextField
+                      id="description"
+                      label="Descrição"
+                      type="text"
+                      name="description"
+                      variant="outlined"
+                      onChange={movementFormik.handleChange}
+                      value={movementFormik.values.description}
+                    />
+                </Box>
+          </FormControl>
+
+          <Box
+            sx={{
+              marginTop: '50px',
+              display: 'flex',
+              justifyContent: 'center'
+            }}>
+            <Button
+              variant="contained"
+              onClick={handleClose2}
+              sx={{
+                backgroundColor: 'white',
+                color: '#666666',
+                width: '224px',
+                fontWeight: 'bold',
+                borderRadius: '10px'
+              }}>
+              Voltar
+            </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+                marginLeft: '150px',
+                width: '224px',
+                fontWeight: 'bold',
+                borderRadius: '10px'
+              }}>
+              Gerar
+            </Button>
+          </Box>
+        </form>
+        </MovimentScrennContent>
+
+      </MovimentScrenn>
+
     </Container>
   )
 }

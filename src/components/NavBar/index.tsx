@@ -168,12 +168,20 @@ const NavBar = () => {
               Ordem de Serviço
             </Button>
             <Button
-              data-testid="buttonUsersPC"
-              key={''}
-              onClick={() => navigate('/users')}
+              data-testid="buttonMovimentsPC"
+              onClick={() => navigate('/movimentacoes')}
               sx={{ my: 2, color: 'white', display: 'block' }}>
-              Usuários
-            </Button>
+              Movimentações
+            </Button>            
+              <Button
+                data-testid="buttonUsersPC"
+                key={''}
+                onClick={() => navigate('/users')}
+                sx={{ my: 2, color: 'white', display: 'block' }}>
+                Usuários
+              </Button>
+
+ 
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Sair">

@@ -10,9 +10,12 @@ feito para atender às demandas da DSTI (Divisão de Suporte Técnico Interno) d
 Aplicação disponível em: [link da aplicação](https://alectrion-2022.herokuapp.com/)
 
 ## Requisitos
-
+### Localmente
 - node (versão 16.10.0 ou superiores)
 - yarn (versão 1.22.18)
+### Docker
+- Docker
+- Docker-compose
 
 ## Instalação
 
@@ -24,15 +27,27 @@ Aplicação disponível em: [link da aplicação](https://alectrion-2022.herokua
 
 > cd 2022-2-Alectrion-FrontEnd
 
-5. instale as depencencias
+3. Crie um arquivo .env da mesma forma do arquivo .env.example 
+### Localmente
+4. instale as depencencias
 
 > yarn
 
-6. Crie um arquivo .env da mesma forma do arquivo .env.example 
-
-7. execute o projeto
+5. execute o projeto
 
 > yarn dev
+
+### Docker
+4. Crie a network ```alectrion-network``` caso ela não exista. Para verificar se a network existe execute:
+
+> docker network ls
+
+Se a network não existir execute o seguinte comando para criar
+> docker network create alectrion-network
+
+5. Execute o projeto
+    
+> docker-compose up
 
 A aplicação estará disponível na porta 3000
 

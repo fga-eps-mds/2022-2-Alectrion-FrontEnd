@@ -8,6 +8,14 @@ import EquipRegister from './index'
 jest.mock('axios')
 
 const mockedAxios = axios as jest.Mocked<typeof axios>
+const location = {
+    state: {
+        userId: "1",
+    },
+    user: {
+        role: "gerente"
+    }
+};
 
 test('should register new CPU', async () => {
   mockedAxios.post.mockResolvedValue({
@@ -26,7 +34,7 @@ test('should register new CPU', async () => {
     processor: 'M1'
   })
   render(
-    <Providers>
+    <Providers location={location}>
       <EquipRegister />
     </Providers>
   )
@@ -97,7 +105,7 @@ test('should register new monitor', async () => {
     screenSize: '23 polegadas'
   })
   render(
-    <Providers>
+    <Providers location={location}>
       <EquipRegister />
     </Providers>
   )
@@ -158,7 +166,7 @@ test('should register new nobreak', async () => {
     power: '220W'
   })
   render(
-    <Providers>
+    <Providers location={location}>
       <EquipRegister />
     </Providers>
   )
@@ -211,7 +219,7 @@ test('should register new stabilizer', async () => {
     tippingNumber: '1745248'
   })
   render(
-    <Providers>
+    <Providers location={location}>
       <EquipRegister />
     </Providers>
   )
@@ -269,7 +277,7 @@ test('should register new stabilizer', async () => {
 
 test('should render register equipment page and back to equipments when back button clicked', async () => {
   render(
-    <Providers>
+    <Providers location={location}>
       <EquipRegister />
     </Providers>
   )

@@ -1,0 +1,124 @@
+.page {
+	width: 210mm;
+	height: 297mm;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-family: 'Arial', sans-serif;
+	padding-top: 10mm;
+	padding-bottom: 10mm;
+	padding-left: 10mm;
+	padding-right: 10mm;
+	box-sizing: border-box;
+}
+
+.page > .header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 10px;
+	color: #848484;
+}
+
+.page > .header > img {
+	height: 15mm;
+	width: fit-content;
+}
+
+.page > .header > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.page > h1 {
+	margin-top: 1em;
+	font-size: 14px;
+	font-weight: bold;
+	font-style: italic;
+}
+
+.page > h2 {
+	font-size: 14px;
+	font-weight: bold;
+	font-style: italic;
+	align-self: start;
+}
+
+.page > .content {
+	width: 100%;
+	margin-top: 1.5em;
+	border: 2px solid black;
+	line-height: 1.5em;
+}
+
+.page > .content > thead {
+	font-weight: bold;
+}
+
+.page > .content > thead > tr {
+	border-bottom: 2px solid black;
+}
+
+.page > .content > thead > tr:not(.title) > td {
+	padding-left: 0.5em;
+}
+
+.page > .content > thead > .title {
+	text-align: center;
+}
+
+.page > .content > thead > .emission > td > span {
+	font-style: italic;
+}
+
+.page > .content > tbody > tr {
+	text-align: center;
+	border-bottom: 1px solid black;
+}
+
+.page > .signatures {
+	width: 100%;
+	border: 2px solid black;
+	line-height: 1.5em;
+	justify-self: flex-end;
+	margin-top: auto;
+}
+
+.page > .signatures > thead {
+	font-weight: bold;
+	font-style: italic;
+}
+
+.page > .signatures > thead > tr {
+	border-bottom: 2px solid black;
+}
+
+.page > .signatures > thead > tr > th {
+	border-right: 2px solid black;
+}
+
+.page > .signatures > tbody {
+	text-align: center;
+}
+
+.page > .signatures > tbody > tr > td {
+	border-right: 2px solid black;
+}
+
+.page > .signatures > tbody > .space {
+	height: 3cm;
+}
+
+.page > .signatures > tbody > .names {
+	font-weight: bold;
+}
+
+.page > .footer {
+	display: flex;
+	flex-direction: column;
+	font-size: 9px;
+	color: #848484;
+	align-items: center;
+	margin-top: 1em;
+}
