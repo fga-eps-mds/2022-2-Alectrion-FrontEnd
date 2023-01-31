@@ -14,10 +14,11 @@ import ScreenUser from '../pages/user-screen'
 import EditUser from '../pages/EditUser'
 import NavBar from '../components/NavBar'
 import ScreenEquipaments from '../pages/ScreenEquipaments'
-import OrderRegister from '../pages/order-service'
+import OrderRegister from '../pages/order-service-register'
 import { CircularProgress } from '@mui/material'
 import EquipRegister from '../pages/equipment-register'
 import { OrderServices } from '../pages/order-services'
+import OrderServiceUpdateForm from '../pages/order-service-update'
 import RegisterTerms from '../pages/terms-register'
 import ProfileUser from '../pages/user-profile'
 type AuthRouteProps = {
@@ -74,11 +75,38 @@ export const SignRoutes = () => {
           }
         />
         <Route
+          path="/create-order-service"
+          element={
+            <AuthRoutes>
+              <NavBar />
+              <OrderRegister />
+            </AuthRoutes>
+          }
+        />
+        <Route
+          path="/order-service-update-form"
+          element={
+            <AuthRoutes>
+              <NavBar />
+              <OrderServiceUpdateForm />
+            </AuthRoutes>
+          }
+        />
+        <Route
           path="/equipaments"
           element={
             <AuthRoutes>
               <NavBar />
               <ScreenEquipaments />
+            </AuthRoutes>
+          }
+        />
+        <Route
+          path="/movimentacoes"
+          element={
+            <AuthRoutes>
+              <NavBar />
+              <RegisterTerms />
             </AuthRoutes>
           }
         />
@@ -96,25 +124,7 @@ export const SignRoutes = () => {
           element={
             <AuthRoutes>
               <NavBar />
-              <EquipRegister/>
-            </AuthRoutes>
-          }
-        />
-        <Route
-          path="/movimentacoes"
-          element={
-            <AuthRoutes>
-              <NavBar />
-              <RegisterTerms />
-            </AuthRoutes>
-          }
-        />
-        <Route
-          path="/create-order-service"
-          element={
-            <AuthRoutes>
-              <NavBar />
-              <OrderRegister />
+              <EquipRegister />
             </AuthRoutes>
           }
         />

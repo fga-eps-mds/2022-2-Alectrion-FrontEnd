@@ -22,9 +22,11 @@ interface OrderService {
   date: string
   description: string
   authorId: string
-  sender: string
+  senderName: string
   senderFunctionalNumber: string
+  status: string
   receiverName: string
+  receiverFunctionalNumber: string
   equipment: {
     type: string
     tippingNumber: string
@@ -50,6 +52,7 @@ export const OrderServices = () => {
   const [openFilter, setOpenFilter] = useState(false)
   const { user } = useContext(AuthContext) as AuthContextType
   const role = user?.role
+  const isConsulta = user.role === 'consulta'
 
   const handleApplyFilter = (values: any) => {
     toast.success('Filtro aplicado')
@@ -88,7 +91,7 @@ export const OrderServices = () => {
     <>
       <Container>
         <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
-          Ordem de serviço
+          Ordem de Serviço
         </Typography>
         <StyledCard>
           <StyledTextField
@@ -96,7 +99,7 @@ export const OrderServices = () => {
             id="filter"
             type="text"
             name="tippingNumber"
-            label="Numero do tombamento"
+            label="Número de Tombamento"
             variant="outlined"
             onChange={(e) => {
               setTippingNumber(e.target.value)
@@ -138,12 +141,15 @@ export const OrderServices = () => {
                 styledColor="#16878C"
                 onClick={() => navigate('/create-order-service')}
                 borderRadius="10px">
-                Cadastrar OS
+                Cadastrar O.S.
               </Button>
             )}
           </ButtonGroup>
         </StyledCard>
-        <OderServiceTable orderServices={orderServices} />
+        <OderServiceTable
+          orderServices={orderServices}
+          isConsulta={isConsulta}
+        />
       </Container>
       <FilterOrderService
         open={openFilter}
