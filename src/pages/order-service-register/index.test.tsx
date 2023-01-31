@@ -40,49 +40,49 @@ test('should register new user', async () => {
             await screen.findByText('Cadastro de ordem de serviço')
         ).toBeInTheDocument()
 
-        const senderNameInput = screen.getByLabelText('Nome do entregador')
+        const senderNameInput = await screen.getByLabelText('Nome do entregador')
         expect(senderNameInput).toBeInTheDocument()
         userEvent.type(senderNameInput, 'lucas eler')
 
-        const senderFunctionalNumberInput = screen.getByLabelText('N° funcional')
+        const senderFunctionalNumberInput = await screen.getByLabelText('N° funcional')
         expect(senderFunctionalNumberInput).toBeInTheDocument()
         userEvent.type(senderFunctionalNumberInput, '123456')
 
-        const dateInput = screen.getByLabelText('Data')
+        const dateInput = await screen.getByLabelText('Data')
         expect(dateInput).toBeInTheDocument()
         userEvent.type(dateInput, 'Mon Sep 19 2022 02:08:05 GMT-0300')
 
-        const tippingNumberInput = screen.getByLabelText('N° Tombamento')
+        const tippingNumberInput = await screen.getByLabelText('N° Tombamento')
         expect(tippingNumberInput).toBeInTheDocument()
         userEvent.type(tippingNumberInput, '654321')
 
-        const statusInput = screen.getByLabelText('Situação')
+        const statusInput = await screen.getByLabelText('Situação')
         expect(statusInput).toBeInTheDocument()
         userEvent.type(statusInput, 'Ativo')
 
-        const productTypeInput = screen.getByLabelText('Tipo de equipamento')
+        const productTypeInput = await screen.getByLabelText('Tipo de equipamento')
         expect(productTypeInput).toBeInTheDocument()
         userEvent.type(productTypeInput, 'CPU')
 
-        const reciverNameInput = screen.getByLabelText('Nome do recebedor')
+        const reciverNameInput = await screen.getByLabelText('Nome do recebedor')
         expect(reciverNameInput).toBeInTheDocument()
         userEvent.type(reciverNameInput, 'Moacir')
 
-        const reciverFunctionalNumberInput = screen.getByLabelText(
+        const reciverFunctionalNumberInput = await screen.getByLabelText(
             'N° funcional do recebedor'
         )
         expect(reciverFunctionalNumberInput).toBeInTheDocument()
         userEvent.type(reciverFunctionalNumberInput, '237231')
 
-        const destinationInput = screen.getByLabelText('Destino')
+        const destinationInput = await screen.getByLabelText('Destino')
         expect(destinationInput).toBeInTheDocument()
         userEvent.type(destinationInput, '15° DP')
 
-        const descriptionInput = screen.getByTestId('description-input')
+        const descriptionInput = await screen.getByTestId('description-input')
         expect(descriptionInput).toBeInTheDocument()
         userEvent.type(descriptionInput, 'descrição do equipamento')
 
-        const registerButton = screen.getByTestId('register-button')
+        const registerButton = await screen.getByTestId('register-button')
         expect(registerButton).toBeInTheDocument()
         userEvent.click(registerButton)
 

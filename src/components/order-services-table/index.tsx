@@ -8,14 +8,19 @@ import Paper from '@mui/material/Paper'
 
 import { StyledTableCell, StyledTableRow } from './styles'
 import { dateFormat } from '../../utils/dateFormat'
+import { useNavigate } from 'react-router-dom'
+import { EditOSButton } from '../edit-os-button'
+
 interface OrderService {
   id: string
   date: string
   description: string
   authorId: string
-  sender: string
+  senderName: string
   senderFunctionalNumber: string
   receiverName: string
+  receiverFunctionalNumber: string
+  status: string
   equipment: {
     type: string
     tippingNumber: string
@@ -24,10 +29,32 @@ interface OrderService {
 }
 interface OrderServicesProps {
   orderServices: OrderService[]
+  isConsulta: boolean
 }
+
+function handleToStatus(status: string) {
+  switch(status){
+    case 'MAINTENANCE': {
+      return 'Em Manuntenção';
+    }
+    case 'WARRANTY': {
+      return 'Garantia'
+    }
+    case 'CONCLUDED': {
+      return 'Concluída'
+    }
+    case 'CANCELED': {
+      return 'Cancelada'
+    }
+  }
+}
+
 export default function OderServiceTable({
-  orderServices
+  orderServices,
+  isConsulta
 }: OrderServicesProps) {
+  const navigate = useNavigate()
+
   return (
     <TableContainer
       sx={{
@@ -39,33 +66,49 @@ export default function OderServiceTable({
       <Table aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">Data Entrada</StyledTableCell>
-            <StyledTableCell align="center">Tipo Equipamento</StyledTableCell>
-            <StyledTableCell align="center">N° tombamento</StyledTableCell>
-            <StyledTableCell align="center">Situação</StyledTableCell>
-            <StyledTableCell align="center">Recebedor</StyledTableCell>
+            <StyledTableCell align="center">ID da O.S.</StyledTableCell>
+            <StyledTableCell align="center">N° de Tombamento</StyledTableCell>
+            <StyledTableCell align="center">Tipo de Equipamento</StyledTableCell>
+            <StyledTableCell align="center">Data de Entrada</StyledTableCell>
             <StyledTableCell align="center">Entregador</StyledTableCell>
+            <StyledTableCell align="center">Recebedor</StyledTableCell>
+            <StyledTableCell align="center">Status da O.S.</StyledTableCell>
+            {!isConsulta && (<StyledTableCell align="center">Atualizar</StyledTableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
           {orderServices?.map((orderSerivce) => (
             <StyledTableRow key={orderSerivce.id}>
               <StyledTableCell align="center">
-                {dateFormat(orderSerivce.date)}
-              </StyledTableCell>
-              <StyledTableCell align="center">
-                {orderSerivce.equipment.type}
+                {orderSerivce.id}
               </StyledTableCell>
               <StyledTableCell align="center">
                 {orderSerivce.equipment.tippingNumber}
               </StyledTableCell>
               <StyledTableCell align="center">
-                {orderSerivce.equipment.situacao}
+                {orderSerivce.equipment.type}
               </StyledTableCell>
               <StyledTableCell align="center">
-                {orderSerivce.receiverName}
+                {dateFormat(orderSerivce.date)}
               </StyledTableCell>
-              <StyledTableCell align="center">{`${orderSerivce.sender} - ${orderSerivce.senderFunctionalNumber}`}</StyledTableCell>
+              <StyledTableCell align="center">{`${orderSerivce.senderName} - ${orderSerivce.senderFunctionalNumber}`}</StyledTableCell>
+              <StyledTableCell align="center">
+                {`${orderSerivce.receiverName} - ${orderSerivce.receiverFunctionalNumber}`}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                {handleToStatus(orderSerivce.status)}
+              </StyledTableCell>
+              {!isConsulta && (
+                <StyledTableCell
+                  align="center"
+                  onClick={() =>
+                    navigate('/order-service-update-form', {
+                      state: { order: orderSerivce }
+                    })
+                  }>
+                  <EditOSButton/>
+                </StyledTableCell>
+              )}
             </StyledTableRow>
           ))}
         </TableBody>
