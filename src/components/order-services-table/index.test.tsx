@@ -26,7 +26,7 @@ test('should list order service', async () => {
             senderFunctionalNumber: '01234',
             receiverName: 'Recebedor Teste',
             receiverFunctionalNumber: '01234567',
-            status: 'Em Manutenção',
+            status: 'MAINTENANCE',
             equipment: {
                 type: 'Monitor',
                 tippingNumber: '123',
@@ -47,9 +47,9 @@ test('should list order service', async () => {
     expect(screen.getByText('01/01/2023')).toBeInTheDocument()
     expect(screen.getByText('Entegrador Teste - 01234')).toBeInTheDocument()
     expect(screen.getByText('Recebedor Teste - 01234567')).toBeInTheDocument()
-    //expect(screen.getByText('Em Manutenção')).toBeInTheDocument() testar função HandleToStatus
+    expect(screen.getByText('Em Manutenção')).toBeInTheDocument()
 
-    const editButton = screen.getByRole('button', { name: 'Editar' })
+    const editButton = screen.getByRole('button')
     expect(editButton).toBeInTheDocument()
     userEvent.click(editButton)
 })
