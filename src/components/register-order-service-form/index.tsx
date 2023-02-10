@@ -75,7 +75,6 @@ const RegisterOrderServiceForm = ({
     validationSchema,
     enableReinitialize: true,
     onSubmit: async (values) => {
-      console.log(formik.values)
       try {
         await api.post(
           `equipment/create-order-service/${initialData?.id}`,
