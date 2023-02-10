@@ -212,7 +212,7 @@ const OrderServiceUpdateForm = ({
                         <StyledTextField
                             aria-readonly
                             id="senderFunctionalNumber-input"
-                            label="N° Funcional do Entregador"
+                            label="RG/Funcional do Entregador"
                             type="text"
                             fullWidth
                             name="senderFunctionalNumber"
@@ -270,6 +270,7 @@ const OrderServiceUpdateForm = ({
                             }
                         />
                         <StyledTextField
+                            sx={{display:'none'}}
                             aria-aria-readonly
                             label="N° Funcional do Recebedor"
                             type="text"
@@ -330,7 +331,7 @@ const OrderServiceUpdateForm = ({
                     </FormContainer>
 
                     <StyledTextArea
-                        label="Descrição"
+                        label="Descrição do problema do equipamento"
                         data-testid="description-input"
                         name="description"
                         multiline
