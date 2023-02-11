@@ -10,6 +10,7 @@ import { StyledTableCell, StyledTableRow } from './styles'
 import { dateFormat } from '../../utils/dateFormat'
 import { useNavigate } from 'react-router-dom'
 import { EditOSButton } from '../edit-os-button'
+import { PrintOSButton } from '../print-os-button'
 
 export interface OrderService {
   id: string
@@ -73,7 +74,8 @@ export default function OderServiceTable({
             <StyledTableCell align="center">Entregador</StyledTableCell>
             <StyledTableCell align="center">Recebedor</StyledTableCell>
             <StyledTableCell align="center">Status da O.S.</StyledTableCell>
-            {!isConsulta && (<StyledTableCell align="center">Atualizar</StyledTableCell>)}
+            <StyledTableCell align="center">Atualizar</StyledTableCell>
+            {!isConsulta && (<StyledTableCell align="center">Imprimir</StyledTableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -107,6 +109,17 @@ export default function OderServiceTable({
                     })
                   }>
                   <EditOSButton/>
+                </StyledTableCell>
+              )}
+               {!isConsulta && (
+                <StyledTableCell
+                  align="center"
+                  onClick={() =>
+                    navigate('/order-service-print', {
+                      state: { order: orderSerivce }
+                    })}
+                  >
+                  <PrintOSButton/>
                 </StyledTableCell>
               )}
             </StyledTableRow>
