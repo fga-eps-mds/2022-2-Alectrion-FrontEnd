@@ -38,8 +38,7 @@ const RegisterOrderServiceForm = ({
   const validationSchema = yup.object().shape({
     authorFunctionalNumber: yup
       .string()
-      .trim()
-      .required('Esse campo é obrigatório'),
+      .trim(),
     senderName: yup.string().trim().required('Esse campo é obrigatório'),
     senderFunctionalNumber: yup
       .string()
@@ -63,7 +62,7 @@ const RegisterOrderServiceForm = ({
   })
   const formik = useFormik({
     initialValues: {
-      authorFunctionalNumber: '',
+      authorFunctionalNumber: 'x',
       senderName: '',
       senderFunctionalNumber: '',
       date: new Date().toISOString().split('T')[0],
@@ -184,7 +183,7 @@ const RegisterOrderServiceForm = ({
               <StyledTextField
                 aria-readonly
                 id="senderFunctionalNumber-input"
-                label="Número Funcional do Entregador"
+                label="RG/Funcional do Entregador"
                 type="text"
                 fullWidth
                 name="senderFunctionalNumber"
@@ -232,6 +231,7 @@ const RegisterOrderServiceForm = ({
                 }
               />
               <StyledTextField
+                sx={{display: 'none'}}
                 aria-aria-readonly
                 label="N° Funcional do Recebedor"
                 type="text"
@@ -253,7 +253,7 @@ const RegisterOrderServiceForm = ({
             </FormContainer>
 
           <StyledTextArea
-            label="Descrição"
+            label="Descrição do problema do equipamento"
             data-testid="description-input"
             name="description"
             multiline
