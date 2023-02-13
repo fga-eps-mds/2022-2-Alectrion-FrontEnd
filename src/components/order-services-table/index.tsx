@@ -93,7 +93,7 @@ export default function OderServiceTable({
               </StyledTableCell>
               <StyledTableCell align="center">{`${orderSerivce.senderName} - ${orderSerivce.senderFunctionalNumber}`}</StyledTableCell>
               <StyledTableCell align="center">
-                {`${orderSerivce.receiverName} - ${orderSerivce.receiverFunctionalNumber}`}
+                {`${orderSerivce.receiverName}`}
               </StyledTableCell>
               <StyledTableCell align="center">
                 {handleToStatus(orderSerivce.status)}

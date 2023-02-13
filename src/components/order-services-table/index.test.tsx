@@ -46,7 +46,7 @@ test('should list order service', async () => {
     expect(screen.getByText('Monitor')).toBeInTheDocument()
     expect(screen.getByText('01/01/2023')).toBeInTheDocument()
     expect(screen.getByText('Entegrador Teste - 01234')).toBeInTheDocument()
-    expect(screen.getByText('Recebedor Teste - 01234567')).toBeInTheDocument()
+    expect(screen.getByText('Recebedor Teste')).toBeInTheDocument()
     expect(screen.getByText('Em Manutenção')).toBeInTheDocument()
 
     const editButton = screen.getByRole('button')
