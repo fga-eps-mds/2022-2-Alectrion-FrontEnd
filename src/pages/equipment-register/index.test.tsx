@@ -50,25 +50,25 @@ test('should register new CPU', async () => {
   userEvent.click(typeInput)
   await waitFor(() => userEvent.click(screen.getByText(/CPU/i)))
 
-  const tippingInput = screen.getByLabelText('N° Tombamento')
+  const tippingInput = screen.getByLabelText('N° Tombamento *')
   userEvent.type(tippingInput, '1745248')
 
-  const brandInput = screen.getByLabelText('Marca')
+  const brandInput = screen.getByLabelText('Marca *')
   userEvent.type(brandInput, 'Apple')
 
-  const serialNumberInput = screen.getByLabelText('N° Série')
+  const serialNumberInput = screen.getByLabelText('N° Série *')
   userEvent.type(serialNumberInput, '52385238')
 
-  const modelInput = screen.getByLabelText('Modelo')
+  const modelInput = screen.getByLabelText('Modelo *')
   userEvent.type(modelInput, 'MacBook')
 
-  const acquisitionInput = screen.getByLabelText('Tipo aquisição')
+  const acquisitionInput = screen.getByLabelText('Tipo aquisição *')
   userEvent.type(acquisitionInput, 'Licitação')
 
   const initialUseDateInput = screen.getByLabelText('Ano do equipamento')
   userEvent.type(initialUseDateInput, '2020')
 
-  const acquisitionDateInput = screen.getByLabelText('Data de aquisição')
+  const acquisitionDateInput = screen.getByLabelText('Data de aquisição *')
   userEvent.type(acquisitionDateInput, '25/10/2021')
 
   const invoiceNumberInput = screen.getByLabelText('N° da nota fiscal')
@@ -77,13 +77,13 @@ test('should register new CPU', async () => {
   const ramMemoryInput = screen.getByTestId('memory-input')
   userEvent.type(ramMemoryInput, '8gb')
 
-  const storageAmountInput = screen.getByLabelText('Armazenamento')
+  const storageAmountInput = screen.getByLabelText('Armazenamento (GB) *')
   userEvent.type(storageAmountInput, '1tb')
 
-  const storageTypeInput = screen.getByLabelText('Tipo armazenamento')
+  const storageTypeInput = screen.getByLabelText('Tipo armazenamento *')
   userEvent.type(storageTypeInput, 'HD externo')
 
-  const processorInput = screen.getByLabelText('Processador')
+  const processorInput = screen.getByLabelText('Processador *')
   userEvent.type(processorInput, 'M1')
 
   const RegisterButton = screen.getByRole('button', { name: 'Cadastrar' })
@@ -121,31 +121,31 @@ test('should register new monitor', async () => {
   userEvent.click(typeInput)
   await waitFor(() => userEvent.click(screen.getByText(/Monitor/i)))
 
-  const tippingInput = screen.getByLabelText('N° Tombamento')
+  const tippingInput = screen.getByLabelText('N° Tombamento *')
   userEvent.type(tippingInput, '1745245')
 
-  const brandInput = screen.getByLabelText('Marca')
+  const brandInput = screen.getByLabelText('Marca *')
   userEvent.type(brandInput, 'LG')
 
-  const serialNumberInput = screen.getByLabelText('N° Série')
+  const serialNumberInput = screen.getByLabelText('N° Série *')
   userEvent.type(serialNumberInput, '52385590')
 
-  const modelInput = screen.getByLabelText('Modelo')
+  const modelInput = screen.getByLabelText('Modelo *')
   userEvent.type(modelInput, 'UltraWide')
 
-  const acquisitionInput = screen.getByLabelText('Tipo aquisição')
+  const acquisitionInput = screen.getByLabelText('Tipo aquisição *')
   userEvent.type(acquisitionInput, 'Licitação')
 
   const initialUseDateInput = screen.getByLabelText('Ano do equipamento')
   userEvent.type(initialUseDateInput, '2022')
 
-  const acquisitionDateInput = screen.getByLabelText('Data de aquisição')
+  const acquisitionDateInput = screen.getByLabelText('Data de aquisição *')
   userEvent.type(acquisitionDateInput, '16/08/2022')
 
   const invoiceNumberInput = screen.getByLabelText('N° da nota fiscal')
   userEvent.type(invoiceNumberInput, '192800')
 
-  const screenTypeInput = screen.getByLabelText('Tipo monitor')
+  const screenTypeInput = screen.getByLabelText('Tipo monitor *')
   userEvent.type(screenTypeInput, 'LED')
 
   const RegisterButton = screen.getByRole('button', { name: 'Cadastrar' })
@@ -182,25 +182,25 @@ test('should register new nobreak', async () => {
   userEvent.click(typeInput)
   await waitFor(() => userEvent.click(screen.getByText(/Nobreak/i)))
 
-  const tippingInput = screen.getByLabelText('N° Tombamento')
+  const tippingInput = screen.getByLabelText('N° Tombamento *')
   userEvent.type(tippingInput, '8237421')
 
-  const brandInput = screen.getByLabelText('Marca')
+  const brandInput = screen.getByLabelText('Marca *')
   userEvent.type(brandInput, 'Intelbras')
 
-  const serialNumberInput = screen.getByLabelText('N° Série')
+  const serialNumberInput = screen.getByLabelText('N° Série *')
   userEvent.type(serialNumberInput, '52385238')
 
-  const modelInput = screen.getByLabelText('Modelo')
+  const modelInput = screen.getByLabelText('Modelo *')
   userEvent.type(modelInput, 'MacBook')
 
-  const acquisitionInput = screen.getByLabelText('Tipo aquisição')
+  const acquisitionInput = screen.getByLabelText('Tipo aquisição *')
   userEvent.type(acquisitionInput, 'Licitação')
 
   const initialUseDateInput = screen.getByLabelText('Ano do equipamento')
   userEvent.type(initialUseDateInput, '2019')
 
-  const acquisitionDateInput = screen.getByLabelText('Data de aquisição')
+  const acquisitionDateInput = screen.getByLabelText('Data de aquisição *')
   userEvent.type(acquisitionDateInput, '10/08/2021')
 
   const invoiceNumberInput = screen.getByLabelText('N° da nota fiscal')
@@ -235,40 +235,40 @@ test('should register new stabilizer', async () => {
   userEvent.click(typeInput)
   await waitFor(() => userEvent.click(screen.getByText(/CPU/i)))
 
-  const tippingInput = screen.getByLabelText('N° Tombamento')
+  const tippingInput = screen.getByLabelText('N° Tombamento *')
   userEvent.type(tippingInput, '1745248')
 
-  const brandInput = screen.getByLabelText('Marca')
+  const brandInput = screen.getByLabelText('Marca *')
   userEvent.type(brandInput, 'Apple')
 
-  const serialNumberInput = screen.getByLabelText('N° Série')
+  const serialNumberInput = screen.getByLabelText('N° Série *')
   userEvent.type(serialNumberInput, '52385238')
 
-  const modelInput = screen.getByLabelText('Modelo')
+  const modelInput = screen.getByLabelText('Modelo *')
   userEvent.type(modelInput, 'MacBook')
 
-  const acquisitionInput = screen.getByLabelText('Tipo aquisição')
+  const acquisitionInput = screen.getByLabelText('Tipo aquisição *')
   userEvent.type(acquisitionInput, 'Licitação')
 
   const equipmentYearInput = screen.getByLabelText('Ano do equipamento')
   userEvent.type(equipmentYearInput, '2020')
 
-  const acquisitionDateInput = screen.getByLabelText('Data de aquisição')
+  const acquisitionDateInput = screen.getByLabelText('Data de aquisição *')
   userEvent.type(acquisitionDateInput, '28/12/2001')
 
   const fiscalNoteInput = screen.getByLabelText('N° da nota fiscal')
   userEvent.type(fiscalNoteInput, '192802')
 
-  const memoryInput = screen.getByLabelText('Memória RAM')
+  const memoryInput = screen.getByLabelText('Memória RAM (GB) *')
   userEvent.type(memoryInput, '8gb')
 
-  const storageAmountInput = screen.getByLabelText('Armazenamento')
+  const storageAmountInput = screen.getByLabelText('Armazenamento (GB) *')
   userEvent.type(storageAmountInput, '1tb')
 
   const storageTypeInput = screen.getByTestId('storageType-input')
   userEvent.type(storageTypeInput, 'HD externo')
 
-  const processorInput = screen.getByLabelText('Processador')
+  const processorInput = screen.getByLabelText('Processador *')
   userEvent.type(processorInput, 'Intel I7')
 
   const RegisterButton = screen.getByRole('button', { name: 'Cadastrar' })
