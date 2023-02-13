@@ -35,7 +35,7 @@ const RegisterEquipForm = () => {
       .required('Esse campo é obrigatório')
       .test('valida campo', 'Apenas números', (value) => {
         if (value) {
-          return /^[0-9]/.test(value)
+          return /^\d+$/.test(value)
         } else return false
       }),
     brand: yup.string().trim().required('Esse campo é obrigatório'),
@@ -43,9 +43,9 @@ const RegisterEquipForm = () => {
       .string()
       .trim()
       .required('Esse campo é obrigatório')
-      .test('valida campo', 'Apenas números', (value) => {
+      .test('valida campo', 'Números e letras', (value) => {
         if (value) {
-          return /^[0-9]/.test(value)
+          return /^\w+$/.test(value)
         } else return false
       }),
     model: yup.string().trim().required('Esse campo é obrigatório'),
@@ -61,11 +61,10 @@ const RegisterEquipForm = () => {
     invoiceNumber: yup
       .string()
       .trim()
-      .required('Esse campo é obrigatório')
       .test('valida campo', 'Apenas números', (value) => {
         if (value) {
-          return /^[0-9]/.test(value)
-        } else return false
+          return /^\d+$/.test(value)
+        } else return true
       }),
     processor: yup
       .string()
@@ -84,7 +83,7 @@ const RegisterEquipForm = () => {
           .required('Esse campo é obrigatório')
           .test('valida campo', 'Apenas números', (value) => {
             if (value) {
-              return /^[0-9]/.test(value)
+              return /^\d+$/.test(value)
             } else return false
           })
       }),
@@ -105,7 +104,7 @@ const RegisterEquipForm = () => {
           .required('Esse campo é obrigatório')
           .test('valida campo', 'Apenas números', (value) => {
             if (value) {
-              return /^[0-9]/.test(value)
+              return /^\d+$/.test(value)
             } else return false
           })
       }),
@@ -126,7 +125,7 @@ const RegisterEquipForm = () => {
           .required('Esse campo é obrigatório')
           .test('valida campo', 'Apenas números', (value) => {
             if (value) {
-              return /^[0-9]/.test(value)
+              return /^\d+$/.test(value)
             } else return false
           })
       }),
@@ -135,7 +134,7 @@ const RegisterEquipForm = () => {
       .max(4)
       .test('valida campo', 'Apenas números', (value) => {
         if (value) {
-          return /^[0-9]/.test(value)
+          return /^\d+$/.test(value)
         } else return true
       }),
     power: yup
@@ -150,7 +149,7 @@ const RegisterEquipForm = () => {
       })
       .test('valida campo', 'Apenas números', (value) => {
         if (value) {
-          return /^[0-9]/.test(value)
+          return /^\d+$/.test(value)
         } else return true
       }),
     description: yup.string().min(3).max(250).trim()
@@ -253,7 +252,7 @@ const RegisterEquipForm = () => {
               renderInput={(params) => (
                 <StyledTextField
                   {...params}
-                  label="Tipo produto"
+                  label="Tipo de Equipamento *"
                   id="productType-select-label"
                   data-testid="productType-select"
                   helperText={
@@ -291,7 +290,7 @@ const RegisterEquipForm = () => {
               renderInput={(params) => (
                 <StyledTextField
                   {...params}
-                  label="Estado do equipamento"
+                  label="Estado do equipamento *"
                   id="estado-input-select-label"
                   data-testid="estado-select"
                   helperText={
@@ -321,7 +320,7 @@ const RegisterEquipForm = () => {
 
             <StyledTextField
               id="tippingNumber-input"
-              label="N° Tombamento"
+              label="N° Tombamento *"
               type="text"
               name="tippingNumber"
               variant="outlined"
@@ -337,7 +336,7 @@ const RegisterEquipForm = () => {
             />
             <StyledTextField
               id="brand-input"
-              label="Marca"
+              label="Marca *"
               type="text"
               name="brand"
               variant="outlined"
@@ -348,7 +347,7 @@ const RegisterEquipForm = () => {
             />
             <StyledTextField
               id="serialNumber-input"
-              label="N° Série"
+              label="N° Série *"
               type="text"
               name="serialNumber"
               variant="outlined"
@@ -364,7 +363,7 @@ const RegisterEquipForm = () => {
             />
             <StyledTextField
               id="model-input"
-              label="Modelo"
+              label="Modelo *"
               type="text"
               name="model"
               variant="outlined"
@@ -375,7 +374,7 @@ const RegisterEquipForm = () => {
             />
             <StyledTextField
               id="acquisitionType-input"
-              label="Tipo aquisição"
+              label="Tipo aquisição *"
               type="text"
               name="acquisitionType"
               variant="outlined"
@@ -407,7 +406,7 @@ const RegisterEquipForm = () => {
             />
             <StyledTextField
               id="acquisitionDate-input"
-              label="Data de aquisição"
+              label="Data de aquisição *"
               type="date"
               name="acquisitionDate"
               variant="outlined"
@@ -443,7 +442,7 @@ const RegisterEquipForm = () => {
                 <StyledTextField
                   id="ramMemory-input"
                   data-testid="memory-input"
-                  label="Memória RAM"
+                  label="Memória RAM (GB) *"
                   type="text"
                   name="ramMemory"
                   variant="outlined"
@@ -459,7 +458,7 @@ const RegisterEquipForm = () => {
 
                 <StyledTextField
                   id="storageAmount-input"
-                  label="Armazenamento"
+                  label="Armazenamento (GB) *"
                   type="text"
                   name="storageAmount"
                   variant="outlined"
@@ -484,7 +483,7 @@ const RegisterEquipForm = () => {
                   renderInput={(params) => (
                     <StyledTextField
                       {...params}
-                      label="Tipo armazenamento"
+                      label="Tipo armazenamento *"
                       id="storageType-input"
                       data-testid="storageType-input"
                       helperText={
@@ -514,7 +513,7 @@ const RegisterEquipForm = () => {
 
                 <StyledTextField
                   id="processor-input"
-                  label="Processador"
+                  label="Processador *"
                   type="text"
                   name="processor"
                   variant="outlined"
@@ -546,7 +545,7 @@ const RegisterEquipForm = () => {
                   renderInput={(params) => (
                     <StyledTextField
                       {...params}
-                      label="Tipo monitor"
+                      label="Tipo monitor *"
                       helperText={
                         formik.touched.monitorType && formik.errors.monitorType
                       }
@@ -573,7 +572,7 @@ const RegisterEquipForm = () => {
                 />
                 <StyledTextField
                   id="monitorSize-input"
-                  label="Tamanho monitor"
+                  label="Tamanho (Polegadas) *"
                   type="text"
                   name="monitorSize"
                   variant="outlined"
@@ -594,7 +593,7 @@ const RegisterEquipForm = () => {
               <StyledTextField
                 id="power-input"
                 data-testid="power-input"
-                label="Potência"
+                label="Potência (VA) *"
                 type="text"
                 name="power"
                 variant="outlined"
